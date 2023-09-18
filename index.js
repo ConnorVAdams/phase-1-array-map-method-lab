@@ -32,32 +32,17 @@ const removeSpecialChar = (word) => {
   return noChars;
 };
 
-const checkForAllCapsOrCamelCase = (word) => {
-  const allCaps = wordsToLetters(word.toUpperCase());
-  const originalLetters = wordsToLetters(word);
-  
-  let index = 0; 
-  for (const letter of originalLetters) {
-    if (letter === allCaps[index] && index !== 0) { 
-      return true;
-    }
-    index++;
-  }
-  return false; 
+const capitalizeFirstLetter = (word) => {
+  removeSpecialChar(word);
+  return word.charAt(0).toUpperCase() + word.slice(1);
 };
 
-const titleCaseOneSentence = (sentence) => {
+const titleCaseOneSentence = sentence => {
   return sentenceToWords(sentence).map(word => {
-    if (checkForAllCapsOrCamelCase(removeSpecialChar(word)) === true) {
-      return word;
-    } else {
-      return word.charAt(0).toUpperCase() + word.slice(1); 
-    }
-  }).join(' ');
-};
+    return capitalizeFirstLetter(word);
+  }).join(' ')
+}
 
 const titleCased = () => {
   return tutorials.map(titleCaseOneSentence);
-};
-
-console.log(titleCased())
+}
